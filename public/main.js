@@ -58,18 +58,15 @@
     const rb = $codeRb.value;
     const rbs = $codeRbs.value;
     const out = $typeprofOutput.value;
-    const option = {};
-    const comment = window.prompt("Problem details (optional):");
-    if (comment === null) {
-      return;
-    }
-    requestReportBug(rb, rbs, option, out, comment)
-      .then((result) => {
-        $minibuffer.value = "reported the bug successfully";
-      })
-      .catch((e) => {
-        $minibuffer.value = `failed to report the bug: ${e}`;
-      });
+    const title = "(your title)"
+    const text = ["## Issue", "\n(your comment)\n",
+                  "## ruby", "```ruby", rb, "```",
+                  "## rbs",  "```ruby", rbs, "```",
+                  "## output", "```",   out, "```"].join("\n")
+
+    window.open("https://github.com/ko1/sample/issues/new?title=" +
+                encodeURIComponent(title) + "&body=" +
+                encodeURIComponent(text));
   }
 
   async function requestAnalyze(rb, rbs, option) {
@@ -81,23 +78,6 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ rb, rbs, option })
-    });
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
-    const body = await res.json();
-    return body;
-  }
-
-  async function requestReportBug(rb, rbs, option, out, comment) {
-    const res = await fetch(API_ENDPOINT + "/report", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ rb, rbs, option, out, comment })
     });
     if (!res.ok) {
       throw new Error(res.statusText);

@@ -8,6 +8,37 @@
   const $typeprofOutput = document.getElementById("typeprof-output");
   const $minibuffer = document.getElementById("minibuffer");
 
+  function onLoad() {
+    const fragment = window.location.hash;
+    if (fragment.length <= 1) {
+      return;
+    }
+    const encodedState = fragment.substring(1);
+    const {rb, rbs} = decodeState(encodedState);
+    $codeRb.value = rb;
+    $codeRbs.value = rbs;
+  }
+
+  function onCodeInput() {
+    const rb = $codeRb.value;
+    const rbs = $codeRbs.value;
+    window.location.hash = encodeState(rb, rbs);
+  }
+
+  function encodeState(rb, rbs) {
+    const params = new URLSearchParams();
+    params.append("rb", rb);
+    params.append("rbs", rbs);
+    return params.toString();
+  }
+
+  function decodeState(encoded) {
+    const params = new URLSearchParams(encoded);
+    const rb = params.get("rb") || "";
+    const rbs = params.get("rbs") || "";
+    return { rb, rbs };
+  }
+
   function onAnalyzeClick() {
     const rb = $codeRb.value;
     const rbs = $codeRbs.value;
@@ -77,4 +108,7 @@
 
   $btnAnalyze.addEventListener("click", onAnalyzeClick, false);
   $btnReportBug.addEventListener("click", onReportBugClick, false);
+  $codeRb.addEventListener("input", onCodeInput, false);
+  $codeRbs.addEventListener("input", onCodeInput, false);
+  onLoad();
 })();

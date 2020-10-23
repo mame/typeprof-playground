@@ -20,20 +20,19 @@
       <div class="flex-col fill">
         <div class="flex-col fill">
           <h5 class="code-label">Ruby</h5>
-          <textarea id="code-rb" class="code-editor fill" spellcheck="false">class Foo
-  def foo(x)
-    s = SomeLibrary.new
-    s.some_method(x)
-  end
+          <textarea id="code-rb" class="code-editor fill" spellcheck="false">def hello_message
+  "Helo, " + User.new.name
 end
 
-Foo.new.foo(42)</textarea>
+def wrong_type_demo
+  "Age is " + User.new.age
+end</textarea>
         </div>
         <div class="flex-col fill">
           <h5 class="code-label">RBS</h5>
-          <textarea id="code-rbs" class="code-editor fill" spellcheck="false">class SomeLibrary
-  def some_method : (Integer) -> Integer
-                  | (String) -> String
+          <textarea id="code-rbs" class="code-editor fill" spellcheck="false">class User
+  def name: -&gt; String
+  def age: -&gt; Integer
 end</textarea>
         </div>
       </div>

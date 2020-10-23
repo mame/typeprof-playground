@@ -20,7 +20,7 @@
       <div class="flex-col fill">
         <div class="flex-col fill">
           <h5 class="code-label">Ruby</h5>
-          <textarea id="code-rb" class="code-editor fill">class Foo
+          <textarea id="code-rb" class="code-editor fill" spellcheck="false">class Foo
   def foo(x)
     s = SomeLibrary.new
     s.some_method(x)
@@ -31,7 +31,7 @@ Foo.new.foo(42)</textarea>
         </div>
         <div class="flex-col fill">
           <h5 class="code-label">RBS</h5>
-          <textarea id="code-rbs" class="code-editor fill">class SomeLibrary
+          <textarea id="code-rbs" class="code-editor fill" spellcheck="false">class SomeLibrary
   def some_method : (Integer) -> Integer
                   | (String) -> String
 end</textarea>
@@ -39,7 +39,7 @@ end</textarea>
       </div>
       <div class="flex-col fill">
         <h5 class="code-label">Output</h5>
-        <textarea readonly id="typeprof-output" class="code-editor fill"></textarea>
+        <textarea readonly id="typeprof-output" class="code-editor fill" spellcheck="false"></textarea>
       </div>
     </div>
     <div class="nav">

@@ -64,7 +64,7 @@
                   "## rbs",  "```ruby", rbs, "```",
                   "## output", "```",   out, "```"].join("\n")
 
-    window.open("https://github.com/ko1/sample/issues/new?title=" +
+    window.open("https://github.com/mame/typeprof-playground/issues/new?title=" +
                 encodeURIComponent(title) + "&body=" +
                 encodeURIComponent(text));
   }

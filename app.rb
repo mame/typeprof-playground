@@ -6,8 +6,9 @@ require "stringio"
 
 class TypeProfPlayground < Sinatra::Base
   class DummyPathname < Pathname
-    def initialize(content)
+    def initialize(content, name)
       @content = content
+      @name = name
     end
 
     def file?
@@ -19,7 +20,7 @@ class TypeProfPlayground < Sinatra::Base
     end
 
     def to_s
-      "test.rbs"
+      @name
     end
 
     def read
@@ -34,16 +35,18 @@ class TypeProfPlayground < Sinatra::Base
     rb_text = request["rb"] || ""
     rbs_text = request["rbs"] || ""
 
-    rb_files = [DummyPathname.new(rb_text)]
-    rbs_files = [DummyPathname.new(rbs_text)]
+    rb_files = [DummyPathname.new(rb_text, "test.rb")]
+    rbs_files = [DummyPathname.new(rbs_text, "test.rbs")]
     output = StringIO.new("")
-    config = TypeProf::ConfigData.new(rb_files: rb_files, rbs_files: rbs_files, output: output)
+    options = { show_errors: true }
+    config = TypeProf::ConfigData.new(rb_files: rb_files, rbs_files: rbs_files, output: output, options: options)
     TypeProf.analyze(config)
     output = config.output.string
     output << "\n\n"
-    output << "## Ruby version: #{ RUBY_VERSION }\n"
-    output << "## RBS version: #{ RBS::VERSION }\n"
-    output << "## TypeProf version: #{ TypeProf::VERSION }\n"
+    output << "## Version info:\n"
+    output << "##   * Ruby: #{ RUBY_VERSION }\n"
+    output << "##   * RBS: #{ RBS::VERSION }\n"
+    output << "##   * TypeProf: #{ TypeProf::VERSION }\n"
 
     response = {
       status: "ok",

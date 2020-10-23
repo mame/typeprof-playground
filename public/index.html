@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Ruby TypeProf Playground</title>
+    <link href="./style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body class="flex-col">
+    <div class="nav flex-row">
+      <div class="flex-row nav-left">
+        <h1>Ruby TypeProf Playground</h1>
+        <button id="btn-analyze">Analyze</button>
+      </div>
+      <div class="flex-row nav-right">
+        <input type="text" readonly id="minibuffer" class="fill">
+        <button id="btn-report-bug">Report bug</button>
+      </div>
+    </div>
+    <div class="flex-row fill">
+      <div class="flex-col fill">
+        <div class="flex-col fill">
+          <h5 class="code-label">Ruby</h5>
+          <textarea id="code-rb" class="code-editor fill">class Foo
+  def foo(x)
+    s = SomeLibrary.new
+    s.some_method(x)
+  end
+end
+
+Foo.new.foo(42)</textarea>
+        </div>
+        <div class="flex-col fill">
+          <h5 class="code-label">RBS</h5>
+          <textarea id="code-rbs" class="code-editor fill">class SomeLibrary
+  def some_method : (Integer) -> Integer
+                  | (String) -> String
+end</textarea>
+        </div>
+      </div>
+      <div class="flex-col fill">
+        <h5 class="code-label">Output</h5>
+        <textarea readonly id="typeprof-output" class="code-editor fill"></textarea>
+      </div>
+    </div>
+    <div class="nav">
+      <p id="footer">GitHub: <a href="https://github.com/ruby/typeprof">ruby/typeprof</a> (Author: <a href="https://github.com/mame">Yusuke Endoh</a>) (Frontend author: <a href="https://twitter.com/koba789">koba789</a>)</p>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>

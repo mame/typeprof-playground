@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: sans-serif;
+    background-color: #efefef;
+}
+
+a {
+    color: #111;
+}
+
+a:focus {
+    outline: dotted 1px #333;
+}
+
+a:hover {
+    color: #222;
+}
+
+a:active, a:visited {
+    color: #444;
+}
+
+table td {
+    border-color: #222;
+    border-style: solid dotted;
+    border-width: 1px 1px 0 0;
+    padding: 6px 6px;
+}
+
+table td:first-child {
+    text-align: right;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+section {
+    padding: 36px 0;
+}
+
+section + section {
+    border-top: 1px solid #ccc;
+}
+
+section > p {
+    margin: 12px 36px;
+}
+
+section > form {
+    text-align: center;
+}
+
+table td:last-child {
+    border-width: 1px 0 0 0;
+}
+
+table tr:nth-child(even) {
+    background-color: #e0e0e0;
+}
+
+label {
+    display: inline-block;
+    vertical-align: middle;
+    border: transparent solid 2px;
+    background-color: #eee;
+    outline: none;
+}
+
+input[type="text"], input[type="number"] {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 4px;
+    font-size: 11pt;
+    border: #222 solid 2px;
+    background-color: #eee;
+    height: 20px;
+    margin: 2px 0;
+    outline: none;
+    border-radius: 0;
+}
+
+input[type="submit"], button, a.button {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: content-box;
+    padding: 4px 6px;
+    font-size: 11pt;
+    border: #222 solid 2px;
+    background-color: #666;
+    color: #eee;
+    height: 20px;
+    margin: 2px 0;
+    outline: none;
+}
+
+input[type="submit"]:hover, button:hover, a.button:hover {
+    background-color: #777;
+}
+
+input[type="submit"]:active, button:active, a.button:active {
+    background-color: #555;
+}
+
+input[type="submit"]:disabled, button:disabled, textarea:disabled {
+    border-color: #888;
+    background-color: #ddd;
+    color: #999;
+}
+
+input[type="text"]:read-only {
+    border-color: #888;
+}
+
+a.button {
+    text-decoration: none;
+}
+
+textarea {
+    padding: 4px 6px;
+    margin: 2px 0;
+    outline: none;
+    border: #222 solid 2px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    display: block;
+    resize: none;
+}
+
+ul {
+    margin-left: 1em;
+}
+
+.label {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 4px;
+    font-size: 11pt;
+    background-color: #eee;
+    height: 20px;
+    margin: 4px 0;
+    outline: none;
+    border-radius: 0;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav {
+    height: 50px;
+    background-color: #e0e0e0;
+}
+
+.nav h1 {
+    font-size: 18px;
+    line-height: 50px;
+}
+
+.nav-right {
+    width: 50%;
+    padding: 0 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-left {
+    width: 50%;
+    padding: 0 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fill {
+    flex: 1 0 auto;
+}
+
+.code-editor {
+    margin: 6px 12px 12px 12px;
+    display: block;
+    font-family: monospace;
+}
+
+.code-label {
+    font-size: 14px;
+    margin: 12px 12px 0 12px;
+}
+
+#minibuffer {
+    margin-right: 12px;
+}
+
+#footer {
+    margin: 12px 12px 0 12px;
+    text-align: center;
+}

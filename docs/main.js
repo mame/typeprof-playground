@@ -3,10 +3,21 @@
 
   const $btnAnalyze = document.getElementById("btn-analyze");
   const $btnReportBug = document.getElementById("btn-report-bug");
-  const $codeRb = document.getElementById("code-rb");
-  const $codeRbs = document.getElementById("code-rbs");
-  const $typeprofOutput = document.getElementById("typeprof-output");
   const $minibuffer = document.getElementById("minibuffer");
+
+  const $codeRb = CodeMirror.fromTextArea(document.getElementById("code-rb"), {
+    lineNumbers: true,
+    mode: "text/x-ruby"
+  });
+  const $codeRbs = CodeMirror.fromTextArea(document.getElementById("code-rbs"), {
+    lineNumbers: true,
+    mode: "text/x-ruby"
+  });
+  const $typeprofOutput = CodeMirror.fromTextArea(document.getElementById("typeprof-output"), {
+    lineNumbers: true,
+    mode: "text/x-ruby",
+    readOnly: true
+  });
 
   function onLoad() {
     const fragment = window.location.hash;
@@ -15,13 +26,13 @@
     }
     const encodedState = fragment.substring(1);
     const {rb, rbs} = decodeState(encodedState);
-    $codeRb.value = rb;
-    $codeRbs.value = rbs;
+    $codeRb.getDoc().setValue(rb);
+    $codeRbs.getDoc().setValue(rbs);
   }
 
   function onCodeInput() {
-    const rb = $codeRb.value;
-    const rbs = $codeRbs.value;
+    const rb = $codeRb.getDoc().getValue();
+    const rbs = $codeRbs.getDoc().getValue();
     window.location.hash = encodeState(rb, rbs);
   }
 
@@ -40,13 +51,13 @@
   }
 
   function onAnalyzeClick() {
-    const rb = $codeRb.value;
-    const rbs = $codeRbs.value;
+    const rb = $codeRb.getDoc().getValue();
+    const rbs = $codeRbs.getDoc().getValue();
     const option = {};
     $minibuffer.value = `analyzing...`;
     requestAnalyze(rb, rbs, option)
       .then((result) => {
-        $typeprofOutput.value = result["out"];
+        $typeprofOutput.getDoc().setValue(result["out"]);
         $minibuffer.value = "";
       })
       .catch((e) => {
@@ -55,9 +66,9 @@
   }
 
   function onReportBugClick() {
-    const rb = $codeRb.value;
-    const rbs = $codeRbs.value;
-    const out = $typeprofOutput.value;
+    const rb = $codeRb.getDoc().getValue();
+    const rbs = $codeRbs.getDoc().getValue();
+    const out = $typeprofOutput.getDoc().getValue();
     const title = "(your title)"
     const text = ["## Issue", "\n(your comment)\n",
                   "## ruby", "```ruby", rb, "```",
@@ -88,7 +99,7 @@
 
   $btnAnalyze.addEventListener("click", onAnalyzeClick, false);
   $btnReportBug.addEventListener("click", onReportBugClick, false);
-  $codeRb.addEventListener("input", onCodeInput, false);
-  $codeRbs.addEventListener("input", onCodeInput, false);
+  $codeRb.on("change", onCodeInput);
+  $codeRbs.on("change", onCodeInput);
   onLoad();
 })();

@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <title>Ruby TypeProf Playground</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" integrity="sha512-UxcTlYsLkcuGZL9JNnMsfo3p7VFSmcgBjH1VUSM82Okk5ni52bk7vz9f2p+D1VnMcNUmMzbzgWqWcdJ2j8Svow==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/ruby/ruby.min.js" integrity="sha512-iaNQnQZsPVbcMNpiS7v0D88nGVv6eH4VWqm2/EhNfoeUZw2YTLJLIsTIPZPMpip3W/fvf3iVHCwfsxvbzeH22A==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
     <link href="./style.css" rel="stylesheet" type="text/css">
   </head>
   <body class="flex-col">
     <div class="nav flex-row">
       <div class="flex-row nav-left">
-        <h1>Ruby TypeProf Playground</h1>
+        <h1><a href="">Ruby TypeProf Playground</a></h1>
         <button id="btn-analyze">Analyze</button>
       </div>
       <div class="flex-row nav-right">
@@ -17,28 +20,34 @@
       </div>
     </div>
     <div class="flex-row fill">
-      <div class="flex-col fill">
-        <div class="flex-col fill">
+      <div class="flex-col half">
+        <div class="flex-col half">
           <h5 class="code-label">Ruby</h5>
-          <textarea id="code-rb" class="code-editor fill" spellcheck="false">def hello_message
+          <div class="codemirror-wrapper">
+            <textarea id="code-rb" class="code-editor fill" spellcheck="false">def hello_message
   "Helo, " + User.new.name
 end
 
 def wrong_type_demo
   "Age is " + User.new.age
 end</textarea>
+          </div>
         </div>
-        <div class="flex-col fill">
+        <div class="flex-col half">
           <h5 class="code-label">RBS</h5>
-          <textarea id="code-rbs" class="code-editor fill" spellcheck="false">class User
+          <div class="codemirror-wrapper">
+            <textarea id="code-rbs" class="code-editor fill" spellcheck="false">class User
   def name: -&gt; String
   def age: -&gt; Integer
 end</textarea>
+          </div>
         </div>
       </div>
-      <div class="flex-col fill">
+      <div class="flex-col half">
         <h5 class="code-label">Output</h5>
-        <textarea readonly id="typeprof-output" class="code-editor fill" spellcheck="false"></textarea>
+        <div class="codemirror-wrapper">
+         <textarea readonly id="typeprof-output" class="code-editor fill" spellcheck="false"></textarea>
+        </div>
       </div>
     </div>
     <div class="nav">

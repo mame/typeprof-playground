@@ -188,12 +188,6 @@ ul {
     flex: 1 0 auto;
 }
 
-.code-editor {
-    margin: 6px 12px 12px 12px;
-    display: block;
-    font-family: monospace;
-}
-
 .code-label {
     font-size: 14px;
     margin: 12px 12px 0 12px;
@@ -206,4 +200,20 @@ ul {
 #footer {
     margin: 12px 12px 0 12px;
     text-align: center;
+}
+
+.half {
+    flex: 1 0 50%;
+}
+
+.codemirror-wrapper {
+    flex: 1 0 auto;
+    margin: 1em;
+    position: relative;
+}
+
+.CodeMirror {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }

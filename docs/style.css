@@ -26,6 +26,10 @@ a:active, a:visited {
     color: #444;
 }
 
+h1 a {
+    text-decoration: none;
+}
+
 table td {
     border-color: #222;
     border-style: solid dotted;

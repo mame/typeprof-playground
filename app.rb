@@ -37,10 +37,9 @@ class TypeProfPlayground < Sinatra::Base
       send_file File.join(__dir__, "docs/main.js")
     end
   else
-    JS = File.read(File.join(__dir__, "docs/main.js")).sub("https://aluminium.ruby-lang.org/typeprof-playground", "")
     get "/main.js" do
       content_type "application/javascript"
-      JS
+      File.read(File.join(__dir__, "docs/main.js")).sub("https://aluminium.ruby-lang.org/typeprof-playground", "")
     end
   end
 

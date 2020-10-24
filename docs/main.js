@@ -27,6 +27,7 @@
     const {rb, rbs} = decodeState(encodedState);
     $codeRb.getDoc().setValue(rb);
     $codeRbs.getDoc().setValue(rbs);
+    onAnalyzeClick();
   }
 
   function onCodeInput() {
@@ -74,9 +75,10 @@
                   "## rbs",  "```ruby", rbs, "```",
                   "## output", "```",   out, "```"].join("\n")
 
-    window.open("https://github.com/mame/typeprof-playground/issues/new?title=" +
-                encodeURIComponent(title) + "&body=" +
-                encodeURIComponent(text));
+    const params = new URLSearchParams();
+    params.append("title", title);
+    params.append("body", text);
+    window.open("https://github.com/mame/typeprof-playground/issues/new?" + params.toString());
   }
 
   async function requestAnalyze(rb, rbs, option) {

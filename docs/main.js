@@ -14,7 +14,6 @@
     mode: "text/x-ruby"
   });
   const $typeprofOutput = CodeMirror.fromTextArea(document.getElementById("typeprof-output"), {
-    lineNumbers: true,
     mode: "text/x-ruby",
     readOnly: true
   });

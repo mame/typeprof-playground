@@ -59,7 +59,7 @@ class TypeProfPlayground < Sinatra::Base
     rbs_files = [DummyPathname.new(rbs_text, "test.rbs")]
     output = StringIO.new("")
     options = { show_errors: true }
-    config = TypeProf::ConfigData.new(rb_files: rb_files, rbs_files: rbs_files, output: output, options: options)
+    config = TypeProf::ConfigData.new(rb_files: rb_files, rbs_files: rbs_files, output: output, max_sec: 5, options: options)
     TypeProf.analyze(config)
     output = config.output.string
     output << "\n\n"

@@ -24,21 +24,29 @@
         <div class="flex-col half">
           <h5 class="code-label">Ruby</h5>
           <div class="codemirror-wrapper">
-            <textarea id="code-rb" class="code-editor fill" spellcheck="false">def hello_message
-  "Hello, " + User.new.name
+            <textarea id="code-rb" class="code-editor fill" spellcheck="false">def hello_message(user)
+  "The name is " + user.name
 end
 
-def wrong_type_demo
-  "Age is " + User.new.age
-end</textarea>
+def type_error_demo(user)
+  "The age is " + user.age
+end
+
+
+user = User.new(name: "John", age: 20)
+
+hello_message(user)
+type_error_demo(user)</textarea>
           </div>
         </div>
         <div class="flex-col half">
           <h5 class="code-label">RBS</h5>
           <div class="codemirror-wrapper">
             <textarea id="code-rbs" class="code-editor fill" spellcheck="false">class User
-  def name: -&gt; String
-  def age: -&gt; Integer
+  def initialize: (name: String, age: Integer) -&gt void
+
+  attr_reader name: String
+  attr_reader age: Integer
 end</textarea>
           </div>
         </div>

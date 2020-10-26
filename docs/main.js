@@ -57,8 +57,13 @@
     $minibuffer.value = `analyzing...`;
     requestAnalyze(rb, rbs, option)
       .then((result) => {
-        $typeprofOutput.getDoc().setValue(result["out"]);
-        $minibuffer.value = "";
+        if (result["status"] == "ok") {
+          $typeprofOutput.getDoc().setValue(result["output"]);
+          $minibuffer.value = "";
+        }
+        else {
+          $minibuffer.value = `failed to analyze: ${result["message"]}`;
+        }
       })
       .catch((e) => {
         $minibuffer.value = `failed to analyze: ${e}`;

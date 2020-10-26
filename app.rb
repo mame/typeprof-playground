@@ -3,6 +3,7 @@ require "json"
 require "typeprof"
 require "pathname"
 require "stringio"
+require "dalli"
 
 class TypeProfPlayground < Sinatra::Base
   class DummyPathname < Pathname
@@ -28,6 +29,17 @@ class TypeProfPlayground < Sinatra::Base
     end
   end
 
+  if ENV["RACK_ENV"] == "production"
+    set :cache, Dalli::Client.new
+  else
+    DummyCache = {}
+    class << DummyCache
+      alias get []
+      alias set []=
+    end
+    set :cache, DummyCache
+  end
+
   get "/" do
     send_file File.join(__dir__, "docs/index.html")
   end
@@ -47,13 +59,29 @@ class TypeProfPlayground < Sinatra::Base
     send_file File.join(__dir__, "docs/style.css")
   end
 
-  post "/analyze" do
-    body = request.body.read
-    request = JSON.parse(body)
+  MAX_SIZE = 2000
 
-    rb_text = request["rb"] || ""
-    rbs_text = request["rbs"] || ""
-    p request
+  post "/analyze" do
+    req = request.body.read
+
+    cache_key = "typeprof-playground:" + req
+
+    res = settings.cache.get(cache_key)
+    return res if res
+
+    req = JSON.parse(req)
+
+    rb_text = req["rb"] || ""
+    rbs_text = req["rbs"] || ""
+
+    if rb_text.size > MAX_SIZE || rbs_text.size > MAX_SIZE
+      return JSON.generate({
+        status: "error",
+        message: "The input is too long",
+      })
+    end
+
+    p req
 
     rb_files = [DummyPathname.new(rb_text, "test.rb")]
     rbs_files = [DummyPathname.new(rbs_text, "test.rbs")]
@@ -61,30 +89,22 @@ class TypeProfPlayground < Sinatra::Base
     options = { show_errors: true }
     config = TypeProf::ConfigData.new(rb_files: rb_files, rbs_files: rbs_files, output: output, max_sec: 5, options: options)
     TypeProf.analyze(config)
-    output = config.output.string
+    output = output.string
     output << "\n\n"
     output << "## Version info:\n"
     output << "##   * Ruby: #{ RUBY_VERSION }\n"
     output << "##   * RBS: #{ RBS::VERSION }\n"
     output << "##   * TypeProf: #{ TypeProf::VERSION }\n"
 
-    response = {
+    res = {
       status: "ok",
-      out: output,
+      output: output,
     }
 
-    JSON.generate(response)
+    res = JSON.generate(res)
 
-    # TODO: error handling
-  end
+    settings.cache.set(cache_key, res)
 
-  post "/report" do
-    # ...
-
-    response = {
-      status: "ok",
-    }
-
-    JSON.generate(response)
+    res
   end
 end

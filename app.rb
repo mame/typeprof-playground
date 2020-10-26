@@ -106,5 +106,13 @@ class TypeProfPlayground < Sinatra::Base
     settings.cache.set(cache_key, res)
 
     res
+
+  rescue SyntaxError, RBS::Parser::SyntaxError => exc
+    res = {
+      status: "error",
+      message: "#{ exc.message }",
+    }
+
+    JSON.generate(res)
   end
 end

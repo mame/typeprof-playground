@@ -6,29 +6,6 @@ require "stringio"
 require "dalli"
 
 class TypeProfPlayground < Sinatra::Base
-  class DummyPathname < Pathname
-    def initialize(content, name)
-      @content = content
-      @name = name
-    end
-
-    def file?
-      true
-    end
-
-    def extname
-      ".rbs"
-    end
-
-    def to_s
-      @name
-    end
-
-    def read
-      @content
-    end
-  end
-
   if ENV["RACK_ENV"] == "production"
     set :cache, Dalli::Client.new
   else
@@ -83,8 +60,8 @@ class TypeProfPlayground < Sinatra::Base
 
     p req
 
-    rb_files = [DummyPathname.new(rb_text, "test.rb")]
-    rbs_files = [DummyPathname.new(rbs_text, "test.rbs")]
+    rb_files = [["test.rb", rb_text]]
+    rbs_files = [["test.rbs", rbs_text]]
     output = StringIO.new("")
     options = { show_errors: true }
     config = TypeProf::ConfigData.new(rb_files: rb_files, rbs_files: rbs_files, output: output, max_sec: 5, options: options)

@@ -1,8 +1,8 @@
 PATH
   remote: ../typeprof
   specs:
-    typeprof (0.2.1)
-      rbs (>= 0.13.1)
+    typeprof (0.5.2)
+      rbs (>= 0.17.0)
 
 GEM
   remote: https://rubygems.org/
@@ -12,14 +12,14 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.4)
-    puma (5.0.2)
+    puma (5.0.4)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-protection (2.1.0)
       rack
-    rbs (0.14.0)
+    rbs (0.17.0)
     ruby2_keywords (0.0.2)
     sinatra (2.1.0)
       mustermann (~> 1.0)

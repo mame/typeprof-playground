@@ -1,5 +1,5 @@
 (function () {
-  const API_ENDPOINT = "https://aluminium.ruby-lang.org/typeprof-playground";
+  const API_ENDPOINT = "https://mame.dev.ruby-lang.org/typeprof-playground/";
 
   const $btnAnalyze = document.getElementById("btn-analyze");
   const $btnReportBug = document.getElementById("btn-report-bug");
